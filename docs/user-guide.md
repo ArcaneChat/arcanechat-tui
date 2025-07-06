@@ -46,5 +46,6 @@ $ arcanechat -f ~/.config/DeltaChat/
 
 - Press <kbd>Esc</kbd> in the draft/composer area to close the chat and go to the chat list.
 - Press <kbd>q</kbd> to quit the program.
+- Press <kbd>+</kbd> in the chat list to add a new chat by e-mail address.
 - Use <kbd>Meta</kbd> + <kbd>Enter</kbd> to enter new line.
 - For shortcuts in the draft/composer area see: [urwid_readline](https://github.com/rr-/urwid_readline)
