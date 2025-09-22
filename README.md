@@ -33,20 +33,35 @@ ArcaneChat TUI is a ncurses Delta Chat client developed in Python with the urwid
 - [ ] Open HTML messages
 - [ ] View archived chats
 
-## Installation
+## Installing
 
-Install ArcaneChat TUI with pip:
-
-```
-$ pip install -U arcanechat-tui
-```
+#### With pip
 
 This program depends on the `deltachat-rpc-server` program to be installed in your system,
 if you want to try to install it using pip run:
 
 ```
-$ pip install -U arcanechat-tui[full]
+$ pip install -U "arcanechat-tui[full]"
 ```
 
-After installation the command `arcanechat-tui` (and `arcanechat` alias) should be available.
+If you will manually install the `deltachat-rpc-server` program in
+your PATH on your own, then run:
+
+```
+$ pip install -U arcanechat-tui
+```
+
+#### With pipx
+
+To install ArcaneChat TUI with [pipx](https://pipx.pypa.io):
+
+```
+$ pipx install arcanechat-tui deltachat-rpc-server
+```
+
+## Using
+
+After installation the command `arcanechat-tui`
+(and `arcanechat` alias) should be available.
+
 For more tips and info check [the user guide](https://github.com/ArcaneChat/arcanechat-tui/blob/main/docs/user-guide.md)
