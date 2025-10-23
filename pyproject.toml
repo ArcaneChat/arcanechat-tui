@@ -32,7 +32,7 @@ Issues = "https://github.com/ArcaneChat/arcanechat-tui/issues"
 
 [project.optional-dependencies]
 full = [
-    "deltachat-rpc-server>=2.15.0",
+    "deltachat-rpc-server>=2.22.0",
 ]
 dev = [
   "deltachat-rpc-server",

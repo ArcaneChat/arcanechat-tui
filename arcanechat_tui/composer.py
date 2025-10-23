@@ -51,7 +51,7 @@ class ComposerWidget(urwid.Filler):
         accid, chatid = self.chat or (0, 0)
         if accid:
             chat = self.client.rpc.get_basic_chat_info(accid, chatid)
-            if chat.is_contact_request or chat.is_protection_broken:
+            if chat.is_contact_request:
                 # accept contact requests automatically on sending
                 self.client.rpc.accept_chat(accid, chatid)
             try:
@@ -65,7 +65,7 @@ class ComposerWidget(urwid.Filler):
     def _update_status_bar(self, chat: Optional[Tuple[int, int]]) -> None:
         if chat:
             info = self.client.rpc.get_basic_chat_info(*chat)
-            verified = "✓ " if info.is_protected or info.is_device_chat else ""
+            verified = "✓ " if info.is_self_talk or info.is_device_chat else ""
             muted = " (muted)" if info.is_muted else ""
             name = shorten_text(info.name, 40)
 
