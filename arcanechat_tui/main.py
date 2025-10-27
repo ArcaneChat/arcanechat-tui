@@ -32,6 +32,7 @@ dtheme = {
 }
 dkeymap = {
     "quit": "q",
+    "addcontact": "+",
     "send_msg": "enter",
     "insert_new_line": "meta enter",
     "next_chat": "meta up",

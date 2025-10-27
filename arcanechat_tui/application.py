@@ -10,6 +10,7 @@ from deltachat2 import Client
 from .cards_widget import CardsWidget
 from .chatlist import CHAT_SELECTED, ChatListWidget
 from .composer import SENDING_MSG_FAILED, ComposerWidget
+from .addcontact import AddContactWidget
 from .container import Container
 from .conversation import ConversationWidget
 from .eventcenter import CHATLIST_CHANGED, MESSAGES_CHANGED, EventCenter
@@ -39,18 +40,22 @@ class Application:
         urwid.connect_signal(self.chatlist, CHAT_SELECTED, composer.set_chat)
         composer_cont = Container(composer, self._composer_keypress)
 
+        self.addcontact = AddContactWidget(client, keymap)
+        addcontact_cont = Container(self.addcontact, self._addcontact_keypress)
+
         self.cards = CardsWidget()
         self.cards.add("welcome", WelcomeWidget())
         self.cards.add("conversation", conversation_cont)
         self.cards.show("welcome")
 
+        self.left_side = urwid.Pile([chatlist_cont, (urwid.PACK, addcontact_cont)])
         self.right_side = urwid.Pile([self.cards, (urwid.PACK, composer_cont)])
 
         vsep = urwid.AttrMap(urwid.Filler(urwid.Columns([])), "separator")
 
         # layout root
         self.main_columns = urwid.Columns(
-            [("weight", 1, chatlist_cont), (1, vsep), ("weight", 4, self.right_side)]
+            [("weight", 1, self.left_side), (1, vsep), ("weight", 4, self.right_side)]
         )
         self.frame = urwid.Frame(self.main_columns)
 
@@ -95,6 +100,11 @@ class Application:
             self.cards.show("welcome")
             # focus chatlist
             self.main_columns.focus_position = 0
+            self.left_side.focus_position = 0
+
+    def addcontact_selected(self) -> None:
+        self.main_columns.focus_position = 0
+        self.left_side.focus_position = 1
 
     def messages_changed(self, _client: Client, accid: int, chatid: int, _msgid: int) -> None:
         chat = self.chatlist.selected_chat
@@ -118,6 +128,8 @@ class Application:
         self.loop.set_alarm_in(duration, reset_footer)
 
     def _unhandled_keypress(self, key: str) -> None:
+        if key == self.keymap["addcontact"]:
+            self.addcontact_selected()
         if key == self.keymap["quit"]:
             self.exit()
 
@@ -142,6 +154,12 @@ class Application:
             return None
         return key
 
+    def _addcontact_keypress(self, _size: list, key: str) -> Optional[str]:
+        if key == "esc":
+            self.chatlist.select_chat(None)
+            return None
+        return key
+
     def run(self, accid: int = 0) -> None:
         rpc = self.client.rpc
         self.accid = accid or self.client.rpc.get_selected_account_id()
@@ -157,6 +175,7 @@ class Application:
             sys.exit(1)
 
         self.chatlist.set_account(self.accid)
+        self.addcontact.set_accid(self.accid)
         self._print_title()
         Thread(target=self.client.run_forever, daemon=True).start()
         try:
