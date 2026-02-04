@@ -22,13 +22,15 @@ def get_subtitle(rpc: Rpc, accid: int, chat: Any) -> str:
         return "Locally generated messages"
     if chat.chat_type == ChatType.MAILINGLIST:
         return "Mailing List"
+    if chat.chat_type == ChatType.IN_BROADCAST:
+        return "Channel"
 
     members = rpc.get_chat_contacts(accid, chat.id)
     if chat.chat_type == ChatType.SINGLE:
         subtitle = rpc.get_contact(accid, members[0]).address
-    elif chat.chat_type == ChatType.BROADCAST:
+    elif chat.chat_type == ChatType.OUT_BROADCAST:
         count = len(members)
-        subtitle = "1 recipient" if count == 1 else f"{count} recipients"
+        subtitle = "1 subscribers" if count == 1 else f"{count} subscribers"
     else:
         count = len(members)
         subtitle = "1 member" if count == 1 else f"{count} members"
