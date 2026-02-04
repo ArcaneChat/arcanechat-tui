@@ -20,10 +20,10 @@ classifiers = [
   "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "deltachat2>=0.8.0",
-    "urwid>=2.6.10",
-    "urwid-readline>=0.14",
-    "appdirs>=1.4.4",
+    "deltachat2==0.9.0",
+    "urwid==3.0.5",
+    "urwid-readline==0.15.1",
+    "appdirs==1.4.4",
 ]
 
 [project.urls]
@@ -32,7 +32,7 @@ Issues = "https://github.com/ArcaneChat/arcanechat-tui/issues"
 
 [project.optional-dependencies]
 full = [
-    "deltachat-rpc-server>=2.22.0",
+    "deltachat-rpc-server==2.39.0",
 ]
 dev = [
   "deltachat-rpc-server",
