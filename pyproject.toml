@@ -7,7 +7,7 @@ name = "arcanechat-tui"
 description = "ArcaneChat client for the command line"
 dynamic = ["version"]
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 keywords = ["deltachat", "ncurses", "tui", "arcanechat"]
 authors = [
   {name = "adbenitez", email = "adb@merlinux.eu"},
